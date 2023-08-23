@@ -1,0 +1,4 @@
+FROM python:3.11.2-slim
+
+RUN pip3 install numpy
+RUN pip3 install streamlit
