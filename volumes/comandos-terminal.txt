@@ -1,0 +1,27 @@
+# criar um volume
+docker volume create dados
+
+# listar volumes 
+docker volume ls
+
+# iniciar um container com o volume dados dentro da pasta "src" -> caso ela não exista ele cria
+docker run --rm -it -v dados:/src ubuntu /bin/bash
+
+# no container
+cd src
+ls --> nada
+echo 123 > x.txt --> cria um dummy file
+ls --> ta la
+exit --> pra sair
+
+--> se executar de novo perceberá que o conteúdo persistiu
+
+--> pode usar no lugar do volume um diretório do computador usando o caminho absoluto
+
+mkdir pedroTonin
+docker run --rm -it -v /home/aluno/pedroTonin:/src ubuntu /bin/bash
+
+# no terminal do container
+cd src
+echo aa > teste.txt
+--> criou um arquivo na pasta real do computador
