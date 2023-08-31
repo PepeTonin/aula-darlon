@@ -25,3 +25,10 @@ docker run --rm -it -v /home/aluno/pedroTonin:/src ubuntu /bin/bash
 cd src
 echo aa > teste.txt
 --> criou um arquivo na pasta real do computador
+
+# definindo variáveis de ambiente para executar automaticamnete
+export GIT_TOKEN=valor
+export GIT_NAME=valor
+export GIT_EMAIL=valor
+export GIT_LOGIN=valor
+export GIT_ASKPASS=valor
