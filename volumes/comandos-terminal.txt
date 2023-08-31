@@ -32,3 +32,6 @@ export GIT_NAME=valor
 export GIT_EMAIL=valor
 export GIT_LOGIN=valor
 export GIT_ASKPASS=valor
+|
+|-> essas variáveis estão no arquivo .env
+    para executar o arquivo .env basta rodar -- $ source .env
