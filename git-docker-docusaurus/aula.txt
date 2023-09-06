@@ -1,0 +1,10 @@
+comandos usados
+
+docker pull node:18
+docker run -it -v ${pwd}/src:/src -p 3000:3000 node:18 /bin/bash
+
+- dentro do terminal do container
+cd src
+npx create-docusaurus@latest aula classic
+cd aula
+npx start docusaurus start --host 0.0.0.0
