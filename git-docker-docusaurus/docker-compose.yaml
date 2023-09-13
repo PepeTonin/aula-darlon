@@ -1,31 +1,24 @@
 version: "3"
 services:
-  # nome do projeto (o container leva esse nome)
-  qualquer_coisa:
-    # nome da imagem base
-    image: node:18
-    # volume, ou seja, diretório da máquina que será espelhado no container e onde ficará dentro do container
-    volumes:
-      - ../../aula-docusaurus2/:/src
-    # as configurações de porta
-    ports: 
-      - "3000:3000"
-    # working dir, autoexplicativo
-    working_dir: /src
-    # comando que será excutado ao subir o container
-    command: npx docusaurus start --host 0.0.0.0
-  servidor_web:
-    image: httpd
-    profile: ["init"]
-    ports:
-      - "8080:80"
   init:
     image: node:18
-    # profile é para dar uma "categoria" ao container
-    # desse modo é possível levantar todos os containers da categoria de uma vez
-    # por padrão, usando docker compose up, container com profile não sobem
-    profile: ["init"]
+    profiles: ["init"]
     volumes:
-      - ../../aula-docusaurus2/:/src
+      - ../../aula-docusaurus/:/src
     working_dir: /src
     command: npm install
+  deploy:
+    image: node:18
+    profiles: ["deploy"]
+    volumes:
+      - ../../aula-docusaurus/:/src
+    working_dir: /src
+    environment:
+      - GIT_USER=$GIT_USER
+      - GIT_PASS=$GIT_PASS
+      - GIT_NAME=$GIT_NAME
+      - GIT_MAIL=$GIT_MAIL
+      - USE_SSH=$USE_SSH
+      - CURRENT_BRANCH=$CURRENT_BRANCH
+    command: bash -c "git config --global user.email $GIT_MAIL && git config --global user.name $GIT_NAME && yarn deploy"
+

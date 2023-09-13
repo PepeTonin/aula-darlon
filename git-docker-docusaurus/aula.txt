@@ -1,23 +1,8 @@
-comandos usados
-
-docker pull node:18
-docker run -it -v $(pwd)/src:/src -p 3000:3000 node:18 /bin/bash
-
-- dentro do terminal do container
-cd src (da pra usar -w para definir um workdir)
-npx create-docusaurus@latest aula classic
-|
-|--> isso faz com que seja criado um projeto docusaurus no diretório da máquina que está clonado no container
-cd aula
-npx start docusaurus start --host 0.0.0.0
-
-- iremos utilizar o docker compose para automatizar esse processo:
-	clonar o repositório com o projeto docusauros do github
-	iniciar um container a partir do node:18 usando volume para espelhar o container na máquina e rodar npm install
-	iniciar um container a partir do node:18 usando volume para espelhar o container na máquina e iniciar o projeto docusaurus
-
-- arquivo do docker compose: docker-compose.yaml	
-- comando para executar o docker compose: no diret´ que o arquivo .yaml se encontra $ docker compose up
-- se subir com: $ docker compose up -d -> ele sobe e fica em segundo plano
-- se no arquivo .yaml tiver mais de um container, é possivel subir só um chamando pelo nome $ docker compose up <nome> (com -d ou nao)
-- para subir containers do mesmo perfil: $ docker compose --profile <nome do profile> up
+nessa aula finalizamos o docker-compose
+foi dividido em duas etapas
+    na primeira (docker compose up init) faz a instalação das dependencias do programa na pasta do projeto, nesse caso estou usando como base o outro repositório, o "aula-docusaurus"
+    na segunda (docker compose up deploy) faz deploy do projeto -> manda para o github e cria um github pages do projeto docusaurus
+    |
+    |-> para isso foi necessário criar um arquivo .env que armazena algumas variáveis de ambiente, em seguida, essas variáveis foram passadas para o .yaml
+        esses dados são necessário para fazer o deploy do projeto, vide documentação do docusaurus
+        além disso, usamos um método para passar mais de uma linha de comando para o container (bash -c "...")
